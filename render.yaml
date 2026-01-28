@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: levelup-productivity
+    env: node
+    region: oregon  # Choose: oregon, frankfurt, singapore, ohio
+    plan: free
+    buildCommand: rm -f package-lock.json && npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      # Add these in Render Dashboard (Secret values):
+      # - DATABASE_URL (from Neon)
+      # - SESSION_SECRET (generate random string)
+      # - GEMINI_API_KEY (optional, for AI features)
+      # - GOOGLE_CLIENT_ID (optional, for Google OAuth)
+      # - GOOGLE_CLIENT_SECRET (optional, for Google OAuth)
+      # - EMAIL_USER (optional, for email features)
+      # - EMAIL_PASS (optional, for email features)
+    healthCheckPath: /api/auth/me
+    autoDeploy: true
